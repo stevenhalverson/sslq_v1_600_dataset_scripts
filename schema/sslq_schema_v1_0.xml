@@ -1,0 +1,158 @@
+<View>
+  <Style>
+    /* two-column layout: image left, form right */
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(420px, 60%) minmax(360px, 40%);
+      gap: 16px;
+      align-items: start;
+    }
+
+    /* format filename text in header */
+    .filename {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px; opacity: .85;
+      max-width: 100%;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      direction: rtl; unicode-bidi: plaintext;   /* show tail first */
+      text-align: left;
+    }
+    
+
+    /* keep the image column pinned while you scroll the form */
+    .left {
+      position: sticky;
+      top: 0;
+      align-self: start;
+      z-index: 2;
+      background: transparent;
+    }
+
+    /* make sure wide images don't overflow into the form */
+    /* .imgbox .lsf-image, */
+    .imgbox { display: flex; justify-content: flex-start; align-items: flex-start; }
+    .image-viewport { 
+        width: 100%;
+        max-height: calc(100vh - 24px); 
+        overflow: auto; 
+    } 
+
+
+    /* horizontal rows */
+    .choices-row { display:flex; flex-wrap:nowrap; overflow-x:auto; gap:12px; padding-bottom:6px; }
+    .labels-row  { display:flex; flex-wrap:wrap; justify-content:center; gap:8px 12px; }
+
+    /* tighten default spacing */
+    .choices-row .ant-radio-wrapper,
+    .choices-row .ant-checkbox-wrapper,
+    .labels-row  .ant-tag { margin: 0 !important; }
+
+    .ratings-row { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; }
+    .notes { max-width: 900px; margin: 8px auto 0; }
+
+    /* stack on small screens */
+    @media (max-width: 1200px) {
+      .two-col { grid-template-columns: 1fr; }
+      .left { position: relative; top: auto; }
+    }
+  </Style>
+	
+  <View className="two-col">
+    <!-- LEFT: image -->
+    <View className="left">
+        <View className="imgbox">
+            <View className="image-viewport">
+                <Image name="image" value="$image" zoom="true" rotateControl="true" zoomControl="true"/>
+            </View>
+        </View>
+    </View>
+
+    <!-- RIGHT: form -->
+    <View>
+      <Header value="Source"/>
+      <HyperText 
+            name="src_link"
+            value="&lt;a href='$image' target='_blank' rel='noopener'&gt;Right-click on this link, 'open link in new tab', and 'save image' to save&lt;/a&gt;" 
+      />
+  
+
+      <Header value="File name"/>
+      <Text name="file_name" value="$image" className="file_name"/>
+      <Header value="Primary Category"/>
+      <Choices name="category" toName="image" showInline="true" choice="single" required="true" requiredMessage="Primary Category selection required" className="choices-row">
+        <Choice value="abstract"/><Choice value="birds"/><Choice value="canyons"/>
+        <Choice value="carl_sagan"/><Choice value="columbia_alternata"/><Choice value="darkness"/>
+        <Choice value="deity"/><Choice value="fantasy"/><Choice value="futurism"/>
+        <Choice value="hearts"/><Choice value="honest_abe"/>
+        <Choice value="interiors"/><Choice value="lakes"/><Choice value="liminal"/>
+        <Choice value="misc"/><Choice value="pyramids"/><Choice value="random_hear"/>
+        <Choice value="rollercoasters"/><Choice value="scenery"/><Choice value="skies"/>
+        <Choice value="space"/><Choice value="stone_ocean"/><Choice value="structures"/>
+        <Choice value="temple"/><Choice value="the_appearing_woman"/><Choice value="the_bellman"/>
+        <Choice value="trees"/>
+      <Choice value="other_category"/></Choices>
+
+      <Header value="Tags (multi)"/>
+      <Labels name="tags" toName="image" showInline="true" choice="multiple" required="true" requiredMessage="at least one Tag selection required" className="labels-row">
+        <Label value="robot" background="#a99eff"/><Label value="pyramid" background="#e0ff9e"/><Label value="electricity" background="#f99eff"/><Label value="portal" background="#9ef9ff"/>
+        <Label value="architecture" background="#231f1f"/><Label value="landscape" background="#00db25"/><Label value="turtle" background="#0acb06"/>
+        <Label value="cityscape" background="#0d13c5"/><Label value="cosmic" background="#b5b1ec"/><Label value="angel" background="#9f90a2"/><Label value="eye" background="#121fd9"/>
+        <Label value="heart" background="#cb25c5"/><Label value="glyph" background="#bfee17"/><Label value="dragon" background="#2f341d"/><Label value="mask" background="#7d6564"/>
+      <Label value="other_tags" background="#ff0000"/></Labels>
+
+      <Header value="Attributes (multi)"/>
+      <Choices name="attributes" toName="image" showInline="true" choice="multiple" required="true" requiredMessage="at least one Attributes selection required" className="choices-row">
+        <Choice value="realistic"/><Choice value="painterly"/><Choice value="vector_flat"/>
+        <Choice value="comic_manga"/><Choice value="photobash"/><Choice value="fractal"/>
+        <Choice value="pixel"/><Choice value="render_3d"/>
+      <Choice value="other_attributes"/></Choices>
+
+      <Header value="Mood"/>
+      <Choices name="mood" toName="image" showInline="true" choice="single" required="true" requiredMessage="Mood selection required" className="choices-row">
+        <Choice value="sacred"/><Choice value="eerie"/><Choice value="hopeful"/>
+        <Choice value="melancholic"/><Choice value="playful"/><Choice value="epic"/>
+      <Choice value="other_mood"/></Choices>
+
+      <Header value="Palette (multi)"/>
+      <Choices name="palette" toName="image" showInline="true" choice="multiple" required="true" requiredMessage="at least one Palette selection required" className="choices-row">
+        <Choice value="blue"/><Choice value="green"/><Choice value="gold"/>
+        <Choice value="neon"/><Choice value="pastel"/><Choice value="monochrome"/><Choice value="high_contrast"/>
+      <Choice value="other_palette"/></Choices>
+
+      <Header value="Composition"/>
+      <Choices name="composition" toName="image" showInline="true" choice="single" required="true" requiredMessage="one choice for Composition selection required" className="choices-row">
+        <Choice value="close_up"/><Choice value="medium"/><Choice value="wide"/>
+        <Choice value="aerial"/><Choice value="isometric"/><Choice value="symmetrical"/>
+      <Choice value="other_composition"/></Choices>
+
+      <Header value="Flags (multi)"/>
+      <Choices name="issue" toName="image" showInline="true" choice="multiple" className="choices-row">
+        <Choice value="blur_noise"/><Choice value="artifacting"/><Choice value="cropped"/>
+        <Choice value="watermark_text"/><Choice value="duplicate"/>
+      <Choice value="other_issue"/></Choices>
+
+      <Header value="Descriptions"/>
+      <TextArea name="human_desc" toName="image" rows="6" className="notes" placeholder="Human Description…" maxLength="4000" required="true" requiredMessage="please populate Human Description to continue"/>
+      <TextArea name="reverse_prompt" toName="image" rows="6" className="notes" placeholder="LLM Reverse Prompt…" maxLength="4000" required="true" requiredMessage="please populate LLM Reverse Prompt to continue"/>
+
+      <Header value="Triage and Score (keep or maybe if Style Match equal or more than 3 stars)"/>
+      <Choices name="triage" toName="image" choice="single" className="choices-row" required="true" requiredMessage="one choice for Triage selection required">
+        <Choice value="keep"/><Choice value="maybe"/><Choice value="skip"/>
+      </Choices>
+
+      <View className="ratings-row">
+        <View>
+          <Header value="Quality"/>
+          <Rating name="quality" toName="image" max="5" icon="star" required="true" requiredMessage="Quality Rating selection required"/>
+        </View>
+        <View>
+          <Header value="Style Match"/>
+          <Rating name="style_match" toName="image" max="5" icon="star" required="true" requiredMessage="Style Match selection required"/>
+        </View>
+      </View>
+
+      <Header value="Notes"/>
+      <TextArea name="notes" toName="image" rows="4" className="notes" placeholder="Optional notes…"/>
+    </View>
+  </View>
+</View>

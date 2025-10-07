@@ -1,0 +1,19 @@
+# Core dataset + hub utilities
+huggingface_hub>=0.23.0
+datasets>=3.0.0
+
+# Basic image I/O and metadata handling
+pillow>=10.0.0
+tqdm>=4.66.0
+pandas>=2.2.0
+
+# Optional but useful for LoRA / model fine-tuning (you can comment out if not training yet)
+transformers>=4.44.0
+accelerate>=0.33.0
+diffusers>=0.30.0
+safetensors>=0.4.3
+peft>=0.11.1
+
+# Optional utilities (embedding search, dupe detection, etc.)
+torch>=2.3.0      # needed for diffusers + embeddings
+sentence-transformers>=3.0.0  # for CLIP/embedding-based similarity checks
