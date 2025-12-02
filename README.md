@@ -1,31 +1,29 @@
 # SSLQ Version 1.600 — Dataset Scripts
 
-This repository contains the **annotation schema** and **data-cleaning scripts** used to prepare the public release of [SSLQ Version 1.600](https://huggingface.co/datasets/shalvers/SSLQ-Version-1.600).  
-The Hugging Face page hosts the dataset itself; this repo documents the supporting workflow and tooling used for **curation and version control**.
+This repository contains the **annotation schema** and **data-cleaning scripts** used to prepare the public release of [SSLQ Version 1.600](https://huggingface.co/datasets/shalvers/SSLQ-Version-1.600) as well as the creation of LoRA models based on the SSLQ dataset [sslq_v1_600_dataset_scripts](https://github.com/stevenhalverson/sslq_v1_600_dataset_scripts).
 
 ---
 
 ### 📁 Contents
 
 - `/schema/sslq_schema_v1_0.xml` — Label Studio interface definition  
-- `/scripts/` — Python utilities for cleaning and renumbering metadata to ensure proper Hugging Face viewer compatibility  
+- `/scripts/` — Python utilities for cleaning and renumbering metadata to ensure proper Hugging Face viewer compatibility
+- `/image_model_training/` — Python utilities for pruning and sorting images and creating .txt files to train an image model, LoRA or possibly fine-tune
 - `/requirements/` — Minimal runtime dependencies for these utilities
 
 ---
 
 ### 🧩 Environments
 
-Two environments were used during development:
+Two environments were used during development of the dataset:
 
 - **Label Studio environment** – for annotation and schema testing.  
   See [`requirements/requirements_ls.txt`](requirements/requirements_ls.txt)  
-  *(Full export from the local Label Studio instance; not all packages are required for end users.)*
+  *(Full export from the local Label Studio instance; mainly for documentation.)*
 
 - **Hugging Face / Upload environment** – for dataset cleaning, metadata generation, and Hub upload.  
   See [`requirements/requirements_hf.txt`](requirements/requirements_hf.txt)  
-  *(Lightweight environment focused on pandas, pillow, and huggingface_hub utilities.)*
-
-For most users, only the Hugging Face environment is needed to reproduce dataset metadata or re-upload.
+  *(Lightweight environment focused on pandas, pillow, and huggingface_hub utilities, for documentation.)*
 
 ---
 
